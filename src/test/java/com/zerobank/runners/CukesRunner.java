@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         dryRun = false,
         strict = false,
-        tags = "@type",
+        tags = "@add_new_payee",
         plugin = {
                 "json:target/cucumber.json",
 
