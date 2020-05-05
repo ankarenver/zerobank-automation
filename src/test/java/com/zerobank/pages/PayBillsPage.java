@@ -4,12 +4,15 @@ import com.zerobank.utilities.BrowserUtils;
 import com.zerobank.utilities.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class PayBillsPage {
 
@@ -100,5 +103,39 @@ public class PayBillsPage {
 
     public void clickOnAdd(){
         Driver.getDriver().findElement(By.id("add_new_payee")).click();
+    }
+
+
+    public boolean areTheseCurrencyAvailable(List<String> currencies){
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pc_currency")));
+        List<String> currenciesInWeb = BrowserUtils.getTextFromWebElement(new Select(Driver.getDriver().findElement(By.id("pc_currency"))).getOptions());
+        for (String each : currencies){
+            if (!currenciesInWeb.contains(each)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public boolean isAlertDisplayed(){
+        BrowserUtils.wait(1);
+        try {
+            Driver.getDriver().switchTo().alert().accept();
+            return true;
+        }catch (NoAlertPresentException e){
+            return false;
+        }
+    }
+
+
+    public void clickOnCalculateCosts(){
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pc_calculate_costs")));
+        Driver.getDriver().findElement(By.id("pc_calculate_costs")).click();
+    }
+
+    public void selectCurrency(){
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pc_currency")));
+        new Select(Driver.getDriver().findElement(By.id("pc_currency"))).selectByIndex(2);
     }
 }

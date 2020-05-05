@@ -5,6 +5,7 @@ import com.zerobank.pages.PayBillsPage;
 import com.zerobank.utilities.BrowserUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.util.List;
@@ -69,4 +70,37 @@ public class PayBillsStepDefinitions {
     public void message_should_be_displayed(String message) {
         Assert.assertEquals(message,payBillsPage.getGreenMsg());
     }
+
+
+
+    @Given("the user accesses the Purchase foreign currency cash tab")
+    public void the_user_accesses_the_Purchase_foreign_currency_cash_tab() {
+        payBillsPage.navigateTo("Purchase Foreign Currency");
+    }
+
+    @Then("following currencies should be available")
+    public void following_currencies_should_be_available(List<String> dataTable) {
+        Assert.assertTrue(payBillsPage.areTheseCurrencyAvailable(dataTable));
+    }
+
+
+    @When("user tries to calculate cost without selecting a currency")
+    public void user_tries_to_calculate_cost_without_selecting_a_currency() {
+        payBillsPage.clickOnCalculateCosts();
+    }
+
+    @Then("error message should be displayed")
+    public void error_message_should_be_displayed() {
+        Assert.assertTrue(payBillsPage.isAlertDisplayed());
+    }
+
+    @When("user tries to calculate cost without entering a value")
+    public void user_tries_to_calculate_cost_without_entering_a_value() {
+        payBillsPage.selectCurrency();
+        payBillsPage.clickOnCalculateCosts();
+    }
+
+
 }
+
+
