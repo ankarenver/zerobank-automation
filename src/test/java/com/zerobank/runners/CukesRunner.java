@@ -10,10 +10,10 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         dryRun = false,
         strict = false,
-        tags = "@Find_Transactions",
+        tags = "@type",
         plugin = {
                 "json:target/cucumber.json",
-                "pretty"
+
 
         }
 )

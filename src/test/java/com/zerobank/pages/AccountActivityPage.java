@@ -33,7 +33,7 @@ public class AccountActivityPage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement findBtn;
 
-    @FindBy(xpath = "//h2[text()='Find Transactions']/following-sibling::div//tbody//tr//td[2]")
+    @FindBy(xpath = "//h2[text()='Find Transactions']/following-sibling::div//td[2]")
     private List<WebElement> lisOfDescriptions;
 
     @FindBy(name = "fromDate")
@@ -42,7 +42,7 @@ public class AccountActivityPage {
     @FindBy(id = "aa_toDate")
     private WebElement dateTo;
 
-    @FindBy(xpath = "//h2[text()='Find Transactions']/following-sibling::div//tbody//tr//td[1]")
+    @FindBy(xpath = "//h2[text()='Find Transactions']/following-sibling::div//td[1]")
     private List<WebElement> listOfDates;
 
 
@@ -81,16 +81,26 @@ public class AccountActivityPage {
     }
 
     public boolean checkDescriptionContainsValue(String value){
-         boolean isAllDescriptionsInStringContainsValue = true ;
-        List<String> descriptionsInString = BrowserUtils.getTextFromWebElement(lisOfDescriptions);
-        System.out.println(descriptionsInString);
-        for (String each :descriptionsInString){
-            if(!each.contains(value)){
-               return isAllDescriptionsInStringContainsValue= false;
+//         boolean isAllDescriptionsInStringContainsValue = true ;
+//        List<String> descriptionsInString = BrowserUtils.getTextFromWebElement(lisOfDescriptions);
+//        System.out.println(descriptionsInString);
+//        for (String each :descriptionsInString){
+//            if(!each.contains(value)){
+//               return isAllDescriptionsInStringContainsValue= false;
+//            }
+//        }
+//        return   isAllDescriptionsInStringContainsValue ;
+
+        List<String> resultsInString = BrowserUtils.getTextFromWebElement(lisOfDescriptions);
+        if (resultsInString.size()==0){
+            return false;
+        }
+        for (String each : resultsInString){
+            if (!each.contains(value)){
+                return false;
             }
         }
-        return   isAllDescriptionsInStringContainsValue ;
-
+        return true;
     }
 
 
@@ -140,6 +150,33 @@ public class AccountActivityPage {
     public boolean isContainValue(String string){
         List<String> resultsInString = BrowserUtils.getTextFromWebElement(listOfDates);
         return resultsInString.contains(string);
+    }
+
+
+
+    public boolean isAtLeastOneValueContainInThisColumn(String columnName){
+        List<String> columnNames = BrowserUtils.getTextFromWebElement(Driver.getDriver().findElements(By.xpath("//h2[text()='Find Transactions']/following-sibling::div//th")));
+        int index=0;
+        for (int i = 0; i <columnNames.size() ; i++) {
+            if (columnNames.get(i).equalsIgnoreCase(columnName)){
+                index=i+1;
+            }
+        }
+        List<WebElement> allData = Driver.getDriver().findElements(By.xpath("//h2[text()='Find Transactions']/following-sibling::div//td["+index+"]"));
+        List<String> allDataInString = BrowserUtils.getTextFromWebElement(allData);
+//        System.out.println(allDataInString);
+        for (String each : allDataInString){
+            if (!each.equals("")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void setType(String string){
+        Select type = new Select(Driver.getDriver().findElement(By.cssSelector("select[name='type']")));
+        type.selectByVisibleText(string);
     }
 
 

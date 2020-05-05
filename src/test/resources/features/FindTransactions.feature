@@ -31,6 +31,33 @@ Feature: Find Transactions in Account Activity
     But results table should not show descriptions containing "ONLINE"
 
 
+  @find_transactions_search_description_case_insensitive
+  Scenario: Search description case insensitive
+    When the user enters description "ONLINE"
+    And clicks search
+    Then results table should only show descriptions containing "ONLINE"
+    When the user enters description "online"
+    And clicks search
+    Then results table should only show descriptions containing "ONLINE"
+
+
+  @type
+  Scenario: Type
+    And clicks search
+    Then results table should show at least one result under "Deposit"
+    Then results table should show at least one result under "Withdrawal"
+
+    When user selects type "Deposit"
+    And clicks search
+    Then results table should show at least one result under "Deposit"
+    But results table should show no result under "Withdrawal"
+
+    When user selects type "Withdrawal"
+    And clicks search
+    Then results table should show at least one result under "Withdrawal"
+    But results table should show no result under "Deposit"
+
+
 
 
 

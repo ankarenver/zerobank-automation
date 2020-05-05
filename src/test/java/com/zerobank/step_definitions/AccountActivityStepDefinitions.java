@@ -78,5 +78,20 @@ public class AccountActivityStepDefinitions {
     }
 
 
+    @Then("results table should show at least one result under {string}")
+    public void results_table_should_show_at_least_one_result_under(String columnName) {
+        Assert.assertTrue(accountActivityPage.isAtLeastOneValueContainInThisColumn(columnName));
+    }
+
+    @When("user selects type {string}")
+    public void user_selects_type(String type) {
+        accountActivityPage.setType(type);
+    }
+
+    @Then("results table should show no result under {string}")
+    public void results_table_should_show_no_result_under(String columnName) {
+        Assert.assertFalse(accountActivityPage.isAtLeastOneValueContainInThisColumn(columnName));
+    }
+
 
 }
