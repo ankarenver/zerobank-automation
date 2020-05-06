@@ -3,7 +3,8 @@ package com.zerobank.step_definitions;
 import com.zerobank.pages.OnlineStatementsPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
+import org.testng.Assert;
+
 
 public class OnlineStatementStepDefinitions {
 
