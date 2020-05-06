@@ -71,10 +71,7 @@ public class PayBillsPage {
 
     public boolean isPopUpMsgDisplayed(){return popUpMsg.isDisplayed();}
 
-    /**
-     *  i will figure out later
-     * @return
-     */
+
     public String getPopUpAlert(String string){
         if (string.equals("Date")){
             return date.getAttribute("validationMessage");
