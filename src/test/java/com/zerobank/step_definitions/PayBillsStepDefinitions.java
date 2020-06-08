@@ -6,7 +6,8 @@ import com.zerobank.utilities.BrowserUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
+import org.testng.Assert;
+
 
 import java.util.List;
 import java.util.Map;
