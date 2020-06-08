@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
         features = "src/test/resources/features",
         dryRun = false,
         strict = false,
-        tags = "",
+        tags = "@Download_statements",
         plugin = {
                 "json:target/cucumber.json",
 
